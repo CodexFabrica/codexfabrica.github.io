@@ -1,10 +1,19 @@
 <header class="site-header">
-    <div class="container">
-        <div class="header-content">
+    <div class="header-content">
+        <div class="logo-dropdown">
             <h1 class="site-title">
                 <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
             </h1>
-            {% include navigation.html %}
+            <div class="dropdown-content">
+                <a href="https://everythingengineering.github.io" target="_blank">Everything Engineering</a>
+                <a href="https://deusschutzaedes.github.io" target="_blank">Deus Schutz Aedes</a>
+                <a href="https://wissenmachina.github.io" target="_blank">Wissen Machina</a>
+                <a href="https://luxscientia.github.io" target="_blank">Lux Scientia</a>
+                <a href="https://racore.github.io" target="_blank">Ra Core</a>
+                <hr>
+                <a href="https://aleaicr.github.io" target="_blank">AICV</a>
+            </div>
         </div>
+        {% include navigation.html %}
     </div>
 </header>

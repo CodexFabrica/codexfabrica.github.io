@@ -4,19 +4,40 @@ title: Home
 ---
 
 <div class="container">
+    <section class="about-section">
+        <h2>About CodexFabrica</h2>
+        <p>CodexFabrica is a research, development, and innovation hub focused on creating open-source software tools and advancing technological solutions. We're committed to building accessible, well-documented software that empowers developers, researchers, and creators.</p>
+        <p>Explore our <a href="{{ '/products.html' | relative_url }}">products</a>, discover our <a href="{{ '/research.html' | relative_url }}">research</a>, and stay updated with our latest <a href="{{ '/news.html' | relative_url }}">news</a>.</p>
+    </section>
+
     <section class="content-section">
+        <h2>Latest News</h2>
         {% if site.news.size > 0 %}
         <ul class="news-list">
-            {% for post in site.news %}
+            {% for post in site.news limit:3 reversed %}
             <li class="news-item">
                 <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
                 <div class="news-date">{{ post.date | date: "%B %d, %Y" }}</div>
-                <div class="news-excerpt">{{ post.excerpt | strip_html }}</div>
+                <div class="news-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+                <a href="{{ post.url | relative_url }}">Read more →</a>
             </li>
             {% endfor %}
         </ul>
+        <p style="margin-top: 24px;"><a href="{{ '/news.html' | relative_url }}">View all news →</a></p>
         {% else %}
         <p>No news articles yet. Check back soon!</p>
         {% endif %}
+    </section>
+
+    <section class="content-section">
+        <h2>Work Ongoing</h2>
+        <p>We're continuously developing new products and features. Check out what we're working on:</p>
+        <ul class="item-list">
+            <li>
+                <h3><a href="{{ '/products/feder.html' | relative_url }}">Feder</a></h3>
+                <p>Open-source Markdown-based workspace for writing. An intuitive alternative to Overleaf and LaTeX.</p>
+            </li>
+        </ul>
+        <p style="margin-top: 24px;"><a href="{{ '/in-development.html' | relative_url }}">See all projects in development →</a></p>
     </section>
 </div>
