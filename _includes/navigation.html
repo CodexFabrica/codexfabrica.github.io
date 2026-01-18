@@ -1,0 +1,10 @@
+<nav class="navigation">
+    <ul>
+        <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+        <li><a href="{{ '/repos.html' | relative_url }}" {% if page.url contains 'repos' %}class="active"{% endif %}>Repositories</a></li>
+        <li><a href="{{ '/releases.html' | relative_url }}" {% if page.url contains 'releases' %}class="active"{% endif %}>Releases</a></li>
+        <li><a href="{{ '/downloads.html' | relative_url }}" {% if page.url contains 'downloads' %}class="active"{% endif %}>Downloads</a></li>
+        <li><a href="{{ '/research.html' | relative_url }}" {% if page.url contains 'research' %}class="active"{% endif %}>Research</a></li>
+        <li><a href="{{ '/news.html' | relative_url }}" {% if page.url contains 'news' %}class="active"{% endif %}>News</a></li>
+    </ul>
+</nav>

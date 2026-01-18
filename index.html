@@ -1,0 +1,62 @@
+---
+layout: default
+title: Home
+---
+
+<div class="container">
+    <section class="hero">
+        <h1>Welcome to CodexFabrica</h1>
+        <p>Research, development, and innovation hub</p>
+        <a href="{{ '/research.html' | relative_url }}" class="btn">Explore Our Research</a>
+        <a href="{{ '/news.html' | relative_url }}" class="btn btn-secondary">Latest News</a>
+    </section>
+
+    <section class="content-section">
+        <h2>About Us</h2>
+        <p>CodexFabrica is dedicated to advancing technology through open-source projects, cutting-edge research, and collaborative innovation. Explore our repositories, releases, research initiatives, and stay updated with the latest news.</p>
+    </section>
+
+    <section class="content-section">
+        <h2>Quick Links</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+            <div style="background: #fff; padding: 1.5rem; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3>📦 Repositories</h3>
+                <p>Browse our open-source projects and contribute to our codebase.</p>
+                <a href="{{ '/repos.html' | relative_url }}" class="btn">View Repos</a>
+            </div>
+            <div style="background: #fff; padding: 1.5rem; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3>🚀 Releases</h3>
+                <p>Check out our latest software releases and version updates.</p>
+                <a href="{{ '/releases.html' | relative_url }}" class="btn">View Releases</a>
+            </div>
+            <div style="background: #fff; padding: 1.5rem; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3>⬇️ Downloads</h3>
+                <p>Download our tools, applications, and resources.</p>
+                <a href="{{ '/downloads.html' | relative_url }}" class="btn">View Downloads</a>
+            </div>
+            <div style="background: #fff; padding: 1.5rem; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3>🔬 Research</h3>
+                <p>Discover our ongoing research projects and publications.</p>
+                <a href="{{ '/research.html' | relative_url }}" class="btn">View Research</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <h2>Latest News</h2>
+        {% if site.news.size > 0 %}
+        <ul class="news-list">
+            {% for post in site.news limit:3 %}
+            <li class="news-item">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <div class="news-date">{{ post.date | date: "%B %d, %Y" }}</div>
+                <div class="news-excerpt">{{ post.excerpt }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ '/news.html' | relative_url }}" class="btn">View All News</a>
+        {% else %}
+        <p>No news articles yet. Check back soon!</p>
+        {% endif %}
+    </section>
+</div>

@@ -1,0 +1,29 @@
+---
+layout: page
+title: News
+description: Latest news, updates, and announcements
+---
+
+<div class="container">
+    <section class="content-section">
+        <h2>Latest News & Updates</h2>
+        <p>Stay informed about our latest developments, announcements, and community updates.</p>
+        
+        {% if site.news.size > 0 %}
+        <ul class="news-list">
+            {% for post in site.news %}
+            <li class="news-item">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <div class="news-date">{{ post.date | date: "%B %d, %Y" }}</div>
+                <div class="news-excerpt">{{ post.excerpt }}</div>
+                <a href="{{ post.url | relative_url }}" class="btn">Read More →</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No news articles yet. Check back soon for updates!</p>
+        
+        <p><em>To add news items, create Markdown files in the <code>_news</code> directory with appropriate front matter (title, date, excerpt).</em></p>
+        {% endif %}
+    </section>
+</div>
