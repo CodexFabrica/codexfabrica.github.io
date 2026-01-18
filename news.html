@@ -1,0 +1,29 @@
+---
+layout: default
+title: News
+description: Latest news and announcements from CodexFabrica
+---
+
+<div class="container">
+    <div class="page-header">
+        <h1>News</h1>
+        <p class="page-description">Stay updated with our latest announcements and developments</p>
+    </div>
+
+    <section class="content-section">
+        {% if site.news.size > 0 %}
+        <ul class="news-list">
+            {% for post in site.news reversed %}
+            <li class="news-item">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <div class="news-date">{{ post.date | date: "%B %d, %Y" }}</div>
+                <div class="news-excerpt">{{ post.excerpt | strip_html | truncatewords: 50 }}</div>
+                <a href="{{ post.url | relative_url }}">Read more →</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No news articles yet. Check back soon!</p>
+        {% endif %}
+    </section>
+</div>
