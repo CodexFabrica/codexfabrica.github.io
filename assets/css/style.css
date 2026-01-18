@@ -14,7 +14,8 @@ body {
 
 /* Container with box shadow */
 .container {
-    max-width: 80%;
+    max-width: 1200px;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff;
@@ -33,7 +34,8 @@ body {
 }
 
 .header-content {
-    max-width: 80%;
+    max-width: 1200px;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -374,6 +376,7 @@ a:hover {
     border-top: 1px solid #e1e4e8;
 }
 
+/* Footer container without shadow for cleaner look */
 .site-footer .container {
     box-shadow: none;
     padding: 0 20px;
@@ -548,22 +551,22 @@ a:hover {
 /* Responsive Design */
 @media (max-width: 1024px) {
     .container {
-        max-width: 90%;
+        width: 90%;
     }
     
     .header-content {
-        max-width: 90%;
+        width: 90%;
     }
 }
 
 @media (max-width: 768px) {
     .container {
-        max-width: 95%;
+        width: 95%;
         padding: 16px;
     }
     
     .header-content {
-        max-width: 95%;
+        width: 95%;
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;

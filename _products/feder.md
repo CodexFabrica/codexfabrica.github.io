@@ -66,15 +66,6 @@ npm start
 
 Navigate to `http://localhost:3000` in your web browser.
 
-### Alternative Installation
-
-If you prefer not to clone the repository, you can install Feder globally via npm:
-
-```bash
-npm install -g feder
-feder
-```
-
 ## Usage Guide
 
 ### Getting Started
