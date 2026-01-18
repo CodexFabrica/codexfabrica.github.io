@@ -1,14 +1,11 @@
 ---
 layout: page
 title: Research
-description: Discover our ongoing research projects and publications
+description: Our research projects and publications
 ---
 
 <div class="container">
     <section class="content-section">
-        <h2>Our Research</h2>
-        <p>Explore our research initiatives, academic publications, and innovative projects that push the boundaries of technology.</p>
-        
         {% if site.research.size > 0 %}
         <ul class="item-list">
             {% for item in site.research %}
@@ -17,22 +14,11 @@ description: Discover our ongoing research projects and publications
                 {% if item.description %}
                 <p>{{ item.description }}</p>
                 {% endif %}
-                {% if item.excerpt %}
-                <p>{{ item.excerpt | strip_html }}</p>
-                {% endif %}
-                <p><a href="{{ item.url | relative_url }}" class="btn">Read More →</a></p>
             </li>
             {% endfor %}
         </ul>
         {% else %}
-        <ul class="item-list">
-            <li>
-                <h3>Research Areas</h3>
-                <p>We are currently organizing our research content. Check back soon for updates on our research projects and publications.</p>
-            </li>
-        </ul>
-        
-        <p><em>To add research items, create Markdown files in the <code>_research</code> directory with appropriate front matter.</em></p>
+        <p>Research projects coming soon.</p>
         {% endif %}
     </section>
 </div>
