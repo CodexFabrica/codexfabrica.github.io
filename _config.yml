@@ -1,0 +1,39 @@
+# Site settings
+title: CodexFabrica
+description: Research, development, and innovation hub
+baseurl: ""
+url: "https://codexfabrica.github.io"
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  research:
+    output: true
+    permalink: /research/:path/
+  news:
+    output: true
+    permalink: /news/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "research"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "news"
+    values:
+      layout: "post"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md

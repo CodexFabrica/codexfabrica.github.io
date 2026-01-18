@@ -1,0 +1,24 @@
+---
+layout: page
+title: Research
+description: Our research projects and publications
+---
+
+<div class="container">
+    <section class="content-section">
+        {% if site.research.size > 0 %}
+        <ul class="item-list">
+            {% for item in site.research %}
+            <li>
+                <h3><a href="{{ item.url | relative_url }}">{{ item.title }}</a></h3>
+                {% if item.description %}
+                <p>{{ item.description }}</p>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Research projects coming soon.</p>
+        {% endif %}
+    </section>
+</div>

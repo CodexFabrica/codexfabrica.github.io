@@ -1,0 +1,22 @@
+---
+layout: default
+title: Home
+---
+
+<div class="container">
+    <section class="content-section">
+        {% if site.news.size > 0 %}
+        <ul class="news-list">
+            {% for post in site.news %}
+            <li class="news-item">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <div class="news-date">{{ post.date | date: "%B %d, %Y" }}</div>
+                <div class="news-excerpt">{{ post.excerpt | strip_html }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No news articles yet. Check back soon!</p>
+        {% endif %}
+    </section>
+</div>
