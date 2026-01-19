@@ -1,0 +1,40 @@
+<div class="product-card">
+    <!-- Main Link Overlay -->
+    <a href="{{ product.url | relative_url }}"
+        style="position: absolute; inset: 0; z-index: 1; border-radius: 8px;"></a>
+
+    <!-- Quick Links (higher z-index) -->
+    <div class="product-quick-links">
+        {% if product.quick_links %}
+        {% for link in product.quick_links %}
+        <a href="{{ link.url }}" target="_blank" class="quick-link-icon" title="{{ link.title }}">
+            {% if link.icon == 'github' %}
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.58V22">
+                </path>
+            </svg>
+            {% elsif link.icon == 'download' %}
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            {% endif %}
+        </a>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="product-card-header">
+        <div class="product-logo">
+            <img src="{{ product.product_logo | relative_url }}" alt="{{ product.title }} Logo"
+                style="width: 100%; height: 100%;">
+        </div>
+        <h1 style="margin: 0; font-size: 34px; font-weight: 400; font-family: 'Roboto', sans-serif;">{{ product.title }}
+        </h1>
+    </div>
+    <p class="product-tagline" style="font-size: 21px;">{{ product.tagline }}</p>
+</div>

@@ -442,7 +442,6 @@ a:hover {
     border-color: var(--accent-color);
 }
 
-/* Header Actions (Buttons under title) */
 .header-actions {
     display: flex;
     justify-content: center;
@@ -550,8 +549,6 @@ a:hover {
     display: flex;
     gap: 8px;
     z-index: 2;
-    opacity: 0.6;
-    transition: opacity 0.3s;
 }
 
 .product-card:hover .product-quick-links {
@@ -562,19 +559,22 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    color: var(--meta-color);
-    background-color: transparent;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     transition: all 0.2s;
-    border: 1px solid transparent;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .quick-link-icon:hover {
-    background-color: var(--tag-bg);
-    color: var(--link-color);
-    border-color: var(--border-color);
+    background-color: var(--link-color);
+    color: #ffffff;
+    border-color: var(--link-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 
@@ -846,7 +846,6 @@ a:hover {
     background-color: var(--bg-color);
 }
 
-/* Rouge Syntax Highlighting (Basic GitHub Colors) */
 .highlight .c {
     color: #8b949e;
     font-style: italic;

@@ -1,6 +1,16 @@
 ---
-title: "Feder - Markdown Writing Workspace"
+title: "Feder"
+layout: page
 description: "Open-source Markdown-based workspace for writers"
+tagline: "Open-source Markdown-based Workspace for Writing"
+product_logo: "/assets/images/feder.svg"
+quick_links:
+  - title: "GitHub Repo"
+    url: "https://github.com/CodexFabrica/Feder"
+    icon: "github"
+  - title: "Download"
+    url: "https://github.com/CodexFabrica/Feder/releases/latest"
+    icon: "download"
 tags: [markdown, writing, open-source]
 ---
 

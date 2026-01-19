@@ -1,12 +1,13 @@
 <nav class="navigation">
-    <ul>
-        <li><a href="{{ '/products/' | relative_url }}" {% if page.url contains 'products' %}class="active" {% endif
-                %}>Products</a></li>
-        <li><a href="{{ '/research/' | relative_url }}" {% if page.url contains 'research' %}class="active" {% endif
-                %}>Research</a></li>
-        <li><a href="{{ '/news/' | relative_url }}" {% if page.url contains 'news' %}class="active" {% endif %}>News</a>
-        </li>
-        <li><a href="{{ '/in-development/' | relative_url }}" {% if page.url contains 'in-development' %}class="active"
-                {% endif %}>In Development</a></li>
-    </ul>
+        <ul>
+                <li><a href="{{ '/products.html' | relative_url }}" {% if page.url contains 'products' %}class="active"
+                                {% endif %}>Products</a></li>
+                <li><a href="{{ '/research.html' | relative_url }}" {% if page.url contains 'research' %}class="active"
+                                {% endif %}>Research</a></li>
+                <li><a href="{{ '/news.html' | relative_url }}" {% if page.url contains 'news' %}class="active" {% endif
+                                %}>News</a>
+                </li>
+                <li><a href="{{ '/in-development.html' | relative_url }}" {% if page.url contains 'in-development'
+                                %}class="active" {% endif %}>In Development</a></li>
+        </ul>
 </nav>
