@@ -479,164 +479,205 @@ a:hover {
     opacity: 0.9;
 }
 
-/* Download Dropdown */
+/* Download Dropdown - Premium Split Design */
 .download-dropdown {
     position: relative;
     display: inline-flex;
-    align-items: center;
+    align-items: stretch;
+    /* Ensure both buttons stretch to fill height */
     background-color: var(--tag-bg);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
-    transition: all 0.2s;
+    border-radius: 24px;
+    /* Slightly rounder */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .download-dropdown:hover {
     border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transform: translateY(-1px);
-    background-color: var(--item-hover);
 }
 
 .download-btn-main {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px 8px 16px;
+    padding: 8px 16px;
     font-size: 15px;
     font-weight: 500;
     color: var(--text-color);
     text-decoration: none;
     border: none;
     background: transparent;
+    border-radius: 24px 0 0 24px;
+    transition: background-color 0.2s;
+}
+
+.download-btn-main:hover {
+    background-color: var(--item-hover);
+    color: var(--link-color);
 }
 
 .download-dropdown-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px 8px 8px;
+    padding: 0 10px;
     background: transparent;
     border: none;
     border-left: 1px solid var(--border-color);
+    /* Separator */
     cursor: pointer;
     color: var(--text-color);
-    border-radius: 0 20px 20px 0;
+    border-radius: 0 24px 24px 0;
     transition: all 0.2s;
 }
 
 .download-dropdown-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--item-hover);
+    color: var(--link-color);
+}
+
+.download-dropdown-toggle.active {
+    background-color: var(--item-hover);
+    color: var(--link-color);
+}
+
+.download-dropdown-toggle svg {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .download-dropdown-toggle.active svg {
     transform: rotate(180deg);
 }
 
-.download-dropdown-toggle svg {
-    transition: transform 0.2s ease;
-}
-
-.dark-mode .download-dropdown-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
+/* Dropdown Menu */
 .download-dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);
     right: 0;
-    margin-top: 8px;
-    min-width: 200px;
+    width: 260px;
+    /* consistent width */
     background-color: var(--dropdown-bg);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     z-index: 1000;
     display: none;
     flex-direction: column;
     overflow: hidden;
-    animation: fadeInDown 0.2s ease-out;
+    transform-origin: top right;
+    animation: scaleIn 0.2s cubic-bezier(0.2, 0, 0.13, 1.5);
 }
 
 .download-dropdown-menu.show {
     display: flex;
 }
 
-@keyframes fadeInDown {
+@keyframes scaleIn {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: scale(0.95) translateY(-10px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1) translateY(0);
     }
 }
 
 .dropdown-header {
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
     color: var(--meta-color);
-    background-color: var(--item-hover);
+    background-color: var(--bg-color);
     border-bottom: 1px solid var(--border-color);
 }
 
 .releases-list {
-    max-height: 300px;
+    max-height: 320px;
     overflow-y: auto;
+    padding: 4px;
+    /* internal padding for item spacing */
 }
 
 .release-item {
-    padding: 10px 16px;
+    padding: 10px 12px;
+    margin: 2px 0;
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.2s;
+    border-radius: 6px;
+    transition: all 0.2s;
     text-decoration: none;
     color: var(--text-color);
-}
-
-.release-item:last-child {
-    border-bottom: none;
+    border: 1px solid transparent;
 }
 
 .release-item:hover {
     background-color: var(--item-hover);
+    border-color: var(--border-color);
+    transform: translateX(2px);
+}
+
+.release-item span {
+    display: block;
 }
 
 .release-version {
     font-weight: 600;
     font-size: 14px;
-    color: var(--link-color);
+    color: var(--text-color);
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+}
+
+.release-version::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--link-color);
+    opacity: 0.6;
 }
 
 .release-date {
     font-size: 12px;
     color: var(--meta-color);
+    margin-left: 12px;
+    /* align with text */
+    margin-top: 2px;
 }
 
 .release-item.loading {
     text-align: center;
     color: var(--meta-color);
-    font-size: 14px;
-    padding: 20px;
+    padding: 24px;
+    pointer-events: none;
 }
 
 .dropdown-footer {
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-top: 1px solid var(--border-color);
-    background-color: var(--item-hover);
+    background-color: var(--code-bg);
+    text-align: center;
 }
 
 .dropdown-footer a {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--link-color);
     text-decoration: none;
+    transition: opacity 0.2s;
 }
 
 .dropdown-footer a:hover {
+    opacity: 0.8;
     text-decoration: underline;
 }
 

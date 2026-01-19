@@ -17,7 +17,7 @@ layout: default
             {% assign repo_parts = link.url | remove: "https://github.com/" | split: "/" %}
             {% assign repo_path = repo_parts[0] | append: "/" | append: repo_parts[1] %}
             <div class="download-dropdown" data-repo="{{ repo_path }}">
-                <a href="{{ link.url }}" class="action-btn download-btn-main">
+                <a href="{{ link.url }}" class="download-btn-main">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>

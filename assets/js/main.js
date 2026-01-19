@@ -149,37 +149,77 @@ function initializeDownloadDropdowns() {
 
 async function fetchReleases(repo, container) {
     try {
-        const response = await fetch(`https://api.github.com/repos/${repo}/releases?per_page=4`);
-        if (!response.ok) throw new Error('Failed to fetch');
+        // Try fetching releases first
+        let response = await fetch(`https://api.github.com/repos/${repo}/releases?per_page=4`);
+        let items = [];
+        let source = 'releases';
 
-        const releases = await response.json();
+        if (response.ok) {
+            items = await response.json();
+        }
 
-        if (releases.length === 0) {
-            container.innerHTML = '<div class="release-item">No releases found</div>';
+        // If no releases, try fetching tags
+        if (items.length === 0) {
+            response = await fetch(`https://api.github.com/repos/${repo}/tags?per_page=4`);
+            if (response.ok) {
+                items = await response.json();
+                source = 'tags';
+            }
+        }
+
+        if (items.length === 0) {
+            container.innerHTML = '<div class="release-item loading">No releases or tags found</div>';
             return;
         }
 
         container.innerHTML = '';
-        releases.forEach(release => {
-            const date = new Date(release.published_at).toLocaleDateString(undefined, {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
+        items.forEach(releaseData => {
+            let version = releaseData.tag_name || releaseData.name;
+            let url = releaseData.html_url || `https://github.com/${repo}/releases/tag/${version}`;
+            let dateStr = '';
+            let prerelease = releaseData.prerelease;
 
-            const item = document.createElement('a');
-            item.href = release.html_url;
-            item.target = '_blank';
-            item.className = 'release-item';
-            item.innerHTML = `
-                <span class="release-version">${release.tag_name} ${release.prerelease ? '(Pre-release)' : ''}</span>
-                <span class="release-date">${date}</span>
+            if (source === 'releases' && releaseData.published_at) {
+                const date = new Date(releaseData.published_at);
+                dateStr = date.toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            } else if (source === 'tags') {
+                dateStr = 'Tag';
+            }
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.className = 'release-item';
+
+            let badge = '';
+            if (prerelease) {
+                badge = ' <span style="font-size: 10px; padding: 2px 4px; background: var(--border-color); border-radius: 4px;">Pre-release</span>';
+            }
+
+            link.innerHTML = `
+                <span class="release-version">${version}${badge}</span>
+                ${dateStr ? `<span class="release-date">${dateStr}</span>` : ''}
             `;
-            container.appendChild(item);
+            container.appendChild(link);
         });
+
+        // Update footer link
+        const dropdown = container.closest('.download-dropdown-menu');
+        if (dropdown) {
+            const footerLink = dropdown.querySelector('.dropdown-footer a');
+            if (footerLink) {
+                footerLink.href = `https://github.com/${repo}/${source === 'tags' ? 'tags' : 'releases'}`;
+                footerLink.textContent = `View all ${source}`;
+            }
+        }
+
     } catch (error) {
         console.error('Error fetching releases:', error);
-        container.innerHTML = '<div class="release-item">Error loading releases</div>';
+        container.innerHTML = '<div class="release-item loading">Error loading releases</div>';
     }
 }
 
