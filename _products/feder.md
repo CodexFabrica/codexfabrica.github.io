@@ -1,5 +1,5 @@
 ---
-title: "FEDER"
+title: "Feder"
 layout: page
 description: "An alternative to Overleaf"
 tagline: "Open-source Markdown-based Workspace for Writing"
@@ -8,7 +8,7 @@ quick_links:
   - title: "Github Repository"
     url: "https://github.com/CodexFabrica/Feder"
     icon: "github"
-  - title: "Download(last release)"
+  - title: "Download"
     url: "https://github.com/CodexFabrica/Feder/releases/latest"
     icon: "download"
 tags: [markdown, writing, open-source]

@@ -13,6 +13,36 @@ layout: default
         {% if page.quick_links %}
         <div class="header-actions">
             {% for link in page.quick_links %}
+            {% if link.title == 'Download' %}
+            {% assign repo_parts = link.url | remove: "https://github.com/" | split: "/" %}
+            {% assign repo_path = repo_parts[0] | append: "/" | append: repo_parts[1] %}
+            <div class="download-dropdown" data-repo="{{ repo_path }}">
+                <a href="{{ link.url }}" class="action-btn download-btn-main">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    {{ link.title }}
+                </a>
+                <button class="download-dropdown-toggle" aria-label="View more releases">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="download-dropdown-menu">
+                    <div class="dropdown-header">Releases</div>
+                    <div class="releases-list">
+                        <div class="release-item loading">Loading releases...</div>
+                    </div>
+                    <div class="dropdown-footer">
+                        <a href="https://github.com/{{ repo_path }}/releases" target="_blank">View all releases</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
             <a href="{{ link.url }}" class="action-btn">
                 {% if link.icon == 'github' %}
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
@@ -31,6 +61,7 @@ layout: default
                 {% endif %}
                 {{ link.title }}
             </a>
+            {% endif %}
             {% endfor %}
         </div>
         {% endif %}

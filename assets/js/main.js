@@ -67,11 +67,11 @@ function initializeCopyButtons() {
 
             try {
                 await navigator.clipboard.writeText(text);
-                
+
                 // Visual feedback
                 button.classList.add('copied');
                 button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>`;
-                
+
                 setTimeout(() => {
                     button.classList.remove('copied');
                     button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
@@ -101,4 +101,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initializeCopyButtons();
+    initializeDownloadDropdowns();
 });
+
+function initializeDownloadDropdowns() {
+    const dropdowns = document.querySelectorAll('.download-dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.download-dropdown-toggle');
+        const menu = dropdown.querySelector('.download-dropdown-menu');
+        const repo = dropdown.getAttribute('data-repo');
+        const releasesList = dropdown.querySelector('.releases-list');
+        let fetched = false;
+
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Close other open download dropdowns
+            document.querySelectorAll('.download-dropdown-menu.show').forEach(openMenu => {
+                if (openMenu !== menu) {
+                    openMenu.classList.remove('show');
+                    openMenu.closest('.download-dropdown').querySelector('.download-dropdown-toggle').classList.remove('active');
+                }
+            });
+
+            const isOpen = menu.classList.toggle('show');
+            toggle.classList.toggle('active', isOpen);
+
+            if (!fetched && repo) {
+                fetchReleases(repo, releasesList);
+                fetched = true;
+            }
+        });
+    });
+
+    // Close download dropdown when clicking outside
+    window.addEventListener('click', (e) => {
+        if (!e.target.closest('.download-dropdown')) {
+            document.querySelectorAll('.download-dropdown-menu.show').forEach(menu => {
+                menu.classList.remove('show');
+                menu.closest('.download-dropdown').querySelector('.download-dropdown-toggle').classList.remove('active');
+            });
+        }
+    });
+}
+
+async function fetchReleases(repo, container) {
+    try {
+        const response = await fetch(`https://api.github.com/repos/${repo}/releases?per_page=4`);
+        if (!response.ok) throw new Error('Failed to fetch');
+
+        const releases = await response.json();
+
+        if (releases.length === 0) {
+            container.innerHTML = '<div class="release-item">No releases found</div>';
+            return;
+        }
+
+        container.innerHTML = '';
+        releases.forEach(release => {
+            const date = new Date(release.published_at).toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+
+            const item = document.createElement('a');
+            item.href = release.html_url;
+            item.target = '_blank';
+            item.className = 'release-item';
+            item.innerHTML = `
+                <span class="release-version">${release.tag_name} ${release.prerelease ? '(Pre-release)' : ''}</span>
+                <span class="release-date">${date}</span>
+            `;
+            container.appendChild(item);
+        });
+    } catch (error) {
+        console.error('Error fetching releases:', error);
+        container.innerHTML = '<div class="release-item">Error loading releases</div>';
+    }
+}
+
