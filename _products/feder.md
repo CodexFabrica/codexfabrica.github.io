@@ -1,14 +1,14 @@
 ---
-title: "Feder"
+title: "FEDER"
 layout: page
-description: "Open-source Markdown-based workspace for writers"
+description: "An alternative to Overleaf"
 tagline: "Open-source Markdown-based Workspace for Writing"
 product_logo: "/assets/images/feder.svg"
 quick_links:
-  - title: "GitHub Repo"
+  - title: "Github Repository"
     url: "https://github.com/CodexFabrica/Feder"
     icon: "github"
-  - title: "Download"
+  - title: "Download(last release)"
     url: "https://github.com/CodexFabrica/Feder/releases/latest"
     icon: "download"
 tags: [markdown, writing, open-source]
