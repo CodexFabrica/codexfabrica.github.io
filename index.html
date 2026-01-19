@@ -5,36 +5,80 @@ title: Home
 
 <div class="container">
     <section class="content-section">
-        <h2>Products</h2>
-        <ul class="item-list">
-            <li>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                    <img src="{{ '/assets/images/feder.svg' | relative_url }}" alt="Feder Logo"
-                        style="width: 24px; height: 24px;">
-                    <h3 class="product-title" style="margin: 0;"><a
-                            href="{{ '/products/feder/' | relative_url }}">Feder</a></h3>
-                </div>
-                <p>Open-source Markdown-based workspace for writing. An intuitive alternative to Overleaf and LaTeX.</p>
-            </li>
-        </ul>
-        <p style="margin-top: 24px;"><a href="{{ '/in-development/' | relative_url }}">See all projects in
-                development →</a></p>
-    </section>
-
-    <section class="content-section">
-        <h2>Latest News</h2>
+        <h2>News</h2>
         {% if site.news.size > 0 %}
-        <ul class="news-list">
-            {% for post in site.news limit:3 reversed %}
+        {% assign latest_news = site.news | sort: "date" | reverse %}
+        <ul class="news-list reduced">
+            {% for post in latest_news limit:3 %}
             <li class="news-item">
-                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-                <div class="news-date">{{ post.date | date: "%B %d, %Y" }}</div>
-                <div class="news-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
-                <a href="{{ post.url | relative_url }}">Read more →</a>
+                <a href="{{ post.url | relative_url }}" class="news-link">
+                    <span class="news-title">{{ post.title }}</span>
+                    <span class="news-category">{% if post.tags.size > 0 %}{{ post.tags[0] }}{% endif %}</span>
+                    <span class="news-date-row">{{ post.date | date: "%b %d, %Y" }}</span>
+                </a>
             </li>
             {% endfor %}
         </ul>
-        <p style="margin-top: 24px;"><a href="{{ '/news/' | relative_url }}">View all news →</a></p>
+        <div class="header-actions" style="margin-top: 32px; justify-content: flex-start; gap: 16px;">
+            <a href="{{ '/news/' | relative_url }}" class="action-btn"
+                style="padding: 8px 20px; border-radius: 20px; background-color: var(--tag-bg); color: var(--text-color); font-weight: 500;">
+                View all news
+            </a>
+        </div>
         {% endif %}
+    </section>
+
+    <section class="content-section">
+        <h2>Products</h2>
+        <div class="products-grid">
+            <!-- Feder Product Card -->
+            <div class="product-card" style="margin-bottom: 0;">
+                <!-- Main Link Overlay -->
+                <a href="{{ '/products/feder/' | relative_url }}"
+                    style="position: absolute; inset: 0; z-index: 1; border-radius: 8px;"></a>
+
+                <!-- Quick Links -->
+                <div class="product-quick-links">
+                    <a href="https://github.com/CodexFabrica/Feder" target="_blank" class="quick-link-icon"
+                        title="GitHub Repo">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.58V22">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/CodexFabrica/Feder/releases/latest" target="_blank"
+                        class="quick-link-icon" title="Download">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="product-card-header">
+                    <div class="product-logo">
+                        <img src="{{ '/assets/images/feder.svg' | relative_url }}" alt="Feder Logo"
+                            style="width: 100%; height: 100%;">
+                    </div>
+                    <h1 style="margin: 0; font-size: 34px; font-weight: 400; font-family: 'Roboto', sans-serif;">Feder
+                    </h1>
+                </div>
+                <p class="product-tagline" style="font-size: 21px;">Open-source Markdown-based Workspace for Writing</p>
+            </div>
+        </div>
+        <div class="header-actions" style="margin-top: 32px; justify-content: flex-start; gap: 16px;">
+            <a href="{{ '/products/' | relative_url }}" class="action-btn"
+                style="padding: 8px 20px; border-radius: 20px; background-color: var(--text-color); color: var(--bg-color); font-weight: 500;">
+                Products
+            </a>
+            <a href="{{ '/in-development/' | relative_url }}" class="action-btn secondary-btn"
+                style="padding: 8px 20px; border-radius: 20px; background-color: var(--tag-bg); color: var(--text-color); font-weight: 500;">
+                In Development
+            </a>
+        </div>
     </section>
 </div>
