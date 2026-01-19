@@ -4,10 +4,21 @@ title: Home
 ---
 
 <div class="container">
-    <section class="about-section">
-        <h2>About CodexFabrica</h2>
-        <p>CodexFabrica is a research, development, and innovation hub focused on creating open-source software tools and advancing technological solutions. We're committed to building accessible, well-documented software that empowers developers, researchers, and creators.</p>
-        <p>Explore our <a href="{{ '/products.html' | relative_url }}">products</a>, discover our <a href="{{ '/research.html' | relative_url }}">research</a>, and stay updated with our latest <a href="{{ '/news.html' | relative_url }}">news</a>.</p>
+    <section class="content-section">
+        <h2>Products</h2>
+        <ul class="item-list">
+            <li>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <img src="{{ '/assets/images/feder.svg' | relative_url }}" alt="Feder Logo"
+                        style="width: 24px; height: 24px;">
+                    <h3 class="product-title" style="margin: 0;"><a
+                            href="{{ '/products/feder/' | relative_url }}">Feder</a></h3>
+                </div>
+                <p>Open-source Markdown-based workspace for writing. An intuitive alternative to Overleaf and LaTeX.</p>
+            </li>
+        </ul>
+        <p style="margin-top: 24px;"><a href="{{ '/in-development/' | relative_url }}">See all projects in
+                development →</a></p>
     </section>
 
     <section class="content-section">
@@ -23,21 +34,7 @@ title: Home
             </li>
             {% endfor %}
         </ul>
-        <p style="margin-top: 24px;"><a href="{{ '/news.html' | relative_url }}">View all news →</a></p>
-        {% else %}
-        <p>No news articles yet. Check back soon!</p>
+        <p style="margin-top: 24px;"><a href="{{ '/news/' | relative_url }}">View all news →</a></p>
         {% endif %}
-    </section>
-
-    <section class="content-section">
-        <h2>Work Ongoing</h2>
-        <p>We're continuously developing new products and features. Check out what we're working on:</p>
-        <ul class="item-list">
-            <li>
-                <h3><a href="{{ '/products/feder.html' | relative_url }}">Feder</a></h3>
-                <p>Open-source Markdown-based workspace for writing. An intuitive alternative to Overleaf and LaTeX.</p>
-            </li>
-        </ul>
-        <p style="margin-top: 24px;"><a href="{{ '/in-development.html' | relative_url }}">See all projects in development →</a></p>
     </section>
 </div>

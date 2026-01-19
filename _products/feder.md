@@ -4,10 +4,6 @@ description: "Open-source Markdown-based workspace for writers"
 tags: [markdown, writing, open-source]
 ---
 
-# Feder - Markdown Writing Workspace
-
-## Overview
-
 Feder is a powerful, open-source workspace designed specifically for writers who prefer the simplicity and flexibility of Markdown. Whether you're writing academic papers, technical documentation, or creative content, Feder provides a streamlined environment that lets you focus on your writing.
 
 **Say goodbye to Overleaf and LaTeX complexity.** Feder offers an intuitive alternative that combines the power of Markdown with professional document output.

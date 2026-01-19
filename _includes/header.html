@@ -1,19 +1,35 @@
 <header class="site-header">
     <div class="header-content">
-        <div class="logo-dropdown">
+        <div class="branding-area">
             <h1 class="site-title">
-                <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+                <a href="{{ '/' | relative_url }}">
+                    <span class="terminal-symbol">>_</span>{{ site.title }}
+                </a>
             </h1>
-            <div class="dropdown-content">
-                <a href="https://everythingengineering.github.io" target="_blank">Everything Engineering</a>
-                <a href="https://deusschutzaedes.github.io" target="_blank">Deus Schutz Aedes</a>
-                <a href="https://wissenmachina.github.io" target="_blank">Wissen Machina</a>
-                <a href="https://luxscientia.github.io" target="_blank">Lux Scientia</a>
-                <a href="https://racore.github.io" target="_blank">Ra Core</a>
-                <hr>
-                <a href="https://aleaicr.github.io" target="_blank">AICV</a>
+            <div class="dropdown-wrapper">
+                <button id="dropdownBtn" class="dropdown-btn" aria-label="Menu">
+                    <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div id="logoDropdown" class="dropdown-content">
+                    <a href="https://everythingengineering.github.io" target="_blank">Everything Engineering</a>
+                    <a href="https://deusschutzaedes.github.io" target="_blank">Deus Schutz Aedes</a>
+                    <a href="https://wissenmachina.github.io" target="_blank">Wissen Machina</a>
+                    <a href="https://luxscientia.github.io" target="_blank">Lux Scientia</a>
+                    <a href="https://racore.github.io" target="_blank">Ra Core</a>
+                    <hr>
+                    <a href="https://aleaicr.github.io" target="_blank">AICV</a>
+                </div>
             </div>
         </div>
-        {% include navigation.html %}
+
+        <div class="right-nav">
+            {% include navigation.html %}
+            <button id="darkModeBtn" class="dark-mode-btn" aria-label="Toggle Dark Mode">
+                <!-- Icon will be inserted by JS -->
+            </button>
+        </div>
     </div>
 </header>
