@@ -10,7 +10,73 @@ layout: default
             {% endif %}
         </header>
 
-        {% if page.quick_links %}
+        {% if page.repository %}
+        <div class="header-actions">
+            <!-- Github Link -->
+            <a href="https://github.com/{{ page.repository }}" class="action-btn" target="_blank">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.58V22">
+                    </path>
+                </svg>
+                Github Repository
+            </a>
+
+            <!-- Download Dropdown -->
+            <div class="download-dropdown" data-repo="{{ page.repository }}">
+                <a href="https://github.com/{{ page.repository }}/releases/latest" class="download-btn-main"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download
+                </a>
+                <button class="download-dropdown-toggle" aria-label="View more releases">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="download-dropdown-menu">
+                    <div class="dropdown-header">Releases</div>
+                    <div class="releases-list">
+                        <div class="release-item loading">Loading releases...</div>
+                    </div>
+                    <div class="dropdown-footer">
+                        <a href="https://github.com/{{ page.repository }}/releases" target="_blank">View all
+                            releases</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop Download Dropdown -->
+            <div class="desktop-download-dropdown" data-repo="{{ page.repository }}" style="display: none;">
+                <div class="desktop-download-group">
+                    <a href="#" class="desktop-download-btn-main" target="_blank">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <span class="btn-text">
+                            Desktop Download
+                            <small class="version-badge"></small>
+                        </span>
+                    </a>
+                    <!-- Toggle will be injected by JS if needed -->
+                </div>
+                <div class="desktop-download-menu">
+                    <div class="dropdown-header">Desktop Installers</div>
+                    <div class="installers-list"></div>
+                </div>
+            </div>
+        </div>
+        {% elsif page.quick_links %}
         <div class="header-actions">
             {% for link in page.quick_links %}
             {% if link.title == 'Download' %}

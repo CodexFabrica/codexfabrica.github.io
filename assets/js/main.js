@@ -100,8 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdownBtn.addEventListener('click', toggleDropdown);
     }
 
+
     initializeCopyButtons();
     initializeDownloadDropdowns();
+    initializeDesktopDownloadDropdowns();
 });
 
 function initializeDownloadDropdowns() {
@@ -220,6 +222,136 @@ async function fetchReleases(repo, container) {
     } catch (error) {
         console.error('Error fetching releases:', error);
         container.innerHTML = '<div class="release-item loading">Error loading releases</div>';
+    }
+}
+
+function initializeDesktopDownloadDropdowns() {
+    const dropdowns = document.querySelectorAll('.desktop-download-dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const repo = dropdown.getAttribute('data-repo');
+        if (repo) {
+            fetchDesktopReleases(repo, dropdown);
+        }
+    });
+
+    // Close desktop dropdown when clicking outside
+    window.addEventListener('click', (e) => {
+        if (!e.target.closest('.desktop-download-dropdown')) {
+            document.querySelectorAll('.desktop-download-menu.show').forEach(menu => {
+                menu.classList.remove('show');
+                const toggle = menu.closest('.desktop-download-dropdown').querySelector('.download-dropdown-toggle');
+                if (toggle) toggle.classList.remove('active');
+            });
+        }
+    });
+}
+
+function isInstaller(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    // Common installer extensions
+    return ['exe', 'msi', 'dmg', 'pkg', 'deb', 'rpm', 'appimage', 'setup'].includes(ext) ||
+        (filename.toLowerCase().includes('setup') && !filename.toLowerCase().includes('source'));
+}
+
+async function fetchDesktopReleases(repo, container) {
+    try {
+        const response = await fetch(`https://api.github.com/repos/${repo}/releases`);
+        if (!response.ok) {
+            container.style.display = 'none';
+            return;
+        }
+
+        const releases = await response.json();
+
+        // Filter releases that have installer assets
+        const installerReleases = releases.filter(release => {
+            return release.assets && release.assets.some(asset => isInstaller(asset.name));
+        });
+
+        if (installerReleases.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+
+        const latest = installerReleases[0];
+        const latestAsset = latest.assets.find(asset => isInstaller(asset.name));
+
+        // Show the container
+        container.style.display = 'flex';
+
+        // Update main button
+        const mainBtn = container.querySelector('.desktop-download-btn-main');
+        if (mainBtn) {
+            mainBtn.href = latestAsset.browser_download_url;
+            mainBtn.classList.remove('loading-state');
+
+            // Update text content safely
+            const textSpan = mainBtn.querySelector('.btn-text');
+            if (textSpan) {
+                // Keep the icon, update text
+                // We modify childNodes to avoid overwriting the badge element if it exists inside, 
+                // but in our HTML structure, badge is inside .btn-text.
+                // HTML: <span class="btn-text">Desktop Download<small class="version-badge"></small></span>
+
+                // Update badge
+                const badge = textSpan.querySelector('.version-badge');
+                if (badge) {
+                    badge.textContent = ` ${latest.tag_name}`;
+                }
+            }
+        }
+
+        // Check for previous versions
+        const previousReleases = installerReleases.slice(1);
+        if (previousReleases.length > 0) {
+            // Create toggle button
+            const group = container.querySelector('.desktop-download-group');
+            if (group) {
+                const toggle = document.createElement('button');
+                toggle.className = 'download-dropdown-toggle';
+                toggle.setAttribute('aria-label', 'View previous versions');
+                toggle.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+
+                toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const menu = container.querySelector('.desktop-download-menu');
+                    const isOpen = menu.classList.toggle('show');
+                    toggle.classList.toggle('active', isOpen);
+
+                    // Close other menus if needed
+                    document.querySelectorAll('.download-dropdown-menu.show').forEach(m => m.classList.remove('show'));
+                });
+
+                group.appendChild(toggle);
+            }
+
+            // Populate previous versions list
+            const list = container.querySelector('.installers-list');
+            if (list) {
+                previousReleases.forEach(release => {
+                    const asset = release.assets.find(a => isInstaller(a.name));
+                    if (!asset) return;
+
+                    const date = new Date(release.published_at);
+                    const dateStr = date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+
+                    const link = document.createElement('a');
+                    link.href = asset.browser_download_url;
+                    link.className = 'release-item';
+                    link.innerHTML = `
+                        <span class="release-version">${release.tag_name}</span>
+                        <span class="release-date">${dateStr}</span>
+                    `;
+                    list.appendChild(link);
+                });
+            }
+        }
+
+    } catch (error) {
+        console.error('Error fetching desktop releases:', error);
+        container.style.display = 'none';
     }
 }
 

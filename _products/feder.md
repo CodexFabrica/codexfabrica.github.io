@@ -4,17 +4,7 @@ layout: page
 description: "A local alternative to Overleaf for your privacy"
 tagline: "Serverless, Open-source and Markdown-based Workspace for Writing"
 product_logo: "/assets/images/feder.svg"
-quick_links:
-  - title: "Github Repository"
-    url: "https://github.com/CodexFabrica/Feder"
-    icon: "github"
-  - title: "Download"
-    url: "https://github.com/CodexFabrica/Feder/releases/latest"
-    icon: "download"
-  - title: "Download Desktop"
-    url_last_stable: "https://github.com/CodexFabrica/Feder/releases/download/v.2.0.0/FederDesktop.Setup.2.0.0.exe"
-    url_last_commig: "
-    icon: "download"
+repository: "CodexFabrica/Feder"
 
 tags: [markdown, writing, open-source]
 ---
