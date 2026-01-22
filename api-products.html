@@ -1,0 +1,15 @@
+---
+layout: null
+permalink: /products.json
+---
+[
+{%- for product in site.products %}
+{
+"title": {{ product.title | jsonify }},
+"url": "{{ site.url }}{{ site.baseurl }}{{ product.url }}",
+"description": {{ product.description | jsonify }},
+"tagline": {{ product.tagline | jsonify }},
+"product_logo": "{{ site.url }}{{ site.baseurl }}{{ product.product_logo }}"
+}{%- unless forloop.last %},{% endunless %}
+{%- endfor %}
+]
