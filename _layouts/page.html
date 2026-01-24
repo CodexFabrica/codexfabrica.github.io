@@ -10,7 +10,7 @@ layout: default
             {% endif %}
         </header>
 
-        {% if page.repository %}
+        {% if page.repository and page.repo_public %}
         <div class="header-actions">
             <!-- Github Link -->
             <a href="https://github.com/{{ page.repository }}" class="action-btn" target="_blank">

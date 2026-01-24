@@ -1,13 +1,18 @@
-<div class="product-card" {% if product.repository %}data-repo="{{ product.repository }}"{% endif %}>
+<div class="product-card" {% if product.repository %}data-repo="{{ product.repository }}" {% endif %}>
     <!-- Main Link Overlay -->
+    {% if product.dev_stage != 'in-dev' %}
     <a href="{{ product.url | relative_url }}"
         style="position: absolute; inset: 0; z-index: 1; border-radius: 8px;"></a>
+    {% endif %}
 
-    <!-- Quick Links (higher z-index) -->
+    <!-- Quick Links (Icons) -->
     <div class="product-quick-links">
-        {% if product.repository %}
+        {% if product.dev_stage == 'beta' or product.dev_stage == 'stable release' %}
+
+        <!-- Repo -->
+        {% if product.distribution == 'open-source' and product.repository and product.repo_public %}
         <a href="https://github.com/{{ product.repository }}" target="_blank" class="quick-link-icon"
-            title="Github Repository">
+            title="Github Repository" style="z-index: 3; position: relative;">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path
@@ -15,8 +20,12 @@
                 </path>
             </svg>
         </a>
+        {% endif %}
+
+        <!-- Download -->
+        {% if (product.distribution == 'open-source' or product.distribution == 'freeware') and product.repository %}
         <a href="https://github.com/{{ product.repository }}/releases/latest" target="_blank" class="quick-link-icon"
-            title="Download">
+            title="Download" style="z-index: 3; position: relative;">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
@@ -24,26 +33,8 @@
                 <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
         </a>
-        {% elsif product.quick_links %}
-        {% for link in product.quick_links %}
-        <a href="{{ link.url }}" target="_blank" class="quick-link-icon" title="{{ link.title }}">
-            {% if link.icon == 'github' %}
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.58V22">
-                </path>
-            </svg>
-            {% elsif link.icon == 'download' %}
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            {% endif %}
-        </a>
-        {% endfor %}
+        {% endif %}
+
         {% endif %}
     </div>
 
@@ -56,4 +47,26 @@
         </h1>
     </div>
     <p class="product-tagline" style="font-size: 21px;">{{ product.tagline }}</p>
+
+    <!-- Footer Badges -->
+    <div class="product-badges" style="margin-top: auto; padding-top: 16px; display: flex; flex-wrap: wrap; gap: 8px;">
+        {% if product.dev_stage %}
+        <span
+            style="background-color: var(--tag-bg); color: var(--tag-text); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; border: 1px solid var(--border-color); letter-spacing: 0.5px;">
+            {{ product.dev_stage }}
+        </span>
+        {% endif %}
+        {% if product.distribution %}
+        <span
+            style="background-color: var(--tag-bg); color: var(--tag-text); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; border: 1px solid var(--border-color); letter-spacing: 0.5px;">
+            {{ product.distribution }}
+        </span>
+        {% endif %}
+        {% if product.product_type %}
+        <span
+            style="background-color: var(--tag-bg); color: var(--tag-text); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; border: 1px solid var(--border-color); letter-spacing: 0.5px;">
+            {{ product.product_type }}
+        </span>
+        {% endif %}
+    </div>
 </div>

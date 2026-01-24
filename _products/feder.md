@@ -1,5 +1,10 @@
 ---
+repo_public: false
+published: true
 title: "Feder"
+dev_stage: "in-dev"
+distribution: "open-source"
+product_type: "webapp"
 layout: page
 description: "A local alternative to Overleaf for your privacy"
 tagline: "Serverless, Open-source and Markdown-based Workspace for Writing"
