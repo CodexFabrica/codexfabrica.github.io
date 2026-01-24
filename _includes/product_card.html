@@ -1,4 +1,4 @@
-<div class="product-card">
+<div class="product-card" {% if product.repository %}data-repo="{{ product.repository }}"{% endif %}>
     <!-- Main Link Overlay -->
     <a href="{{ product.url | relative_url }}"
         style="position: absolute; inset: 0; z-index: 1; border-radius: 8px;"></a>

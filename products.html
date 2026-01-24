@@ -36,3 +36,26 @@ description: ""
     {% include product_card.html product=product %}
     {% endfor %}
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const productCards = document.querySelectorAll('.product-card[data-repo]');
+
+        productCards.forEach(card => {
+            const repo = card.getAttribute('data-repo');
+            if (repo) {
+                // Check if repo is public by trying to fetch it
+                // API returns 404 if private (for unauthenticated requests) or not found
+                fetch(`https://api.github.com/repos/${repo}`)
+                    .then(response => {
+                        if (response.status === 404) {
+                            card.style.display = 'none';
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error checking repo visibility for', repo, err);
+                    });
+            }
+        });
+    });
+</script>
