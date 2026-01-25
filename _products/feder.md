@@ -1,5 +1,5 @@
 ---
-repo_public: true
+repo_public: false
 published: true
 title: "Feder"
 dev_stage: "beta"
