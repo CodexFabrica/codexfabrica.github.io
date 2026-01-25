@@ -1,9 +1,9 @@
 ---
-repo_public: false
+repo_public: true
 published: true
 title: "Feder"
-dev_stage: "in-dev"
-distribution: "open-source"
+dev_stage: "beta"
+distribution: "freeware"
 product_type: "webapp"
 layout: page
 description: "A local alternative to Overleaf for your privacy"
