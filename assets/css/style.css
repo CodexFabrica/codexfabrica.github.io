@@ -211,10 +211,15 @@ a:hover {
 .right-nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 8px;
 }
 
-/* Navigation */
+/* Navigation — sits between branding and right-nav on desktop */
+.navigation {
+    margin-left: auto;
+    margin-right: 24px;
+}
+
 .navigation ul {
     list-style: none;
     display: flex;
@@ -235,6 +240,38 @@ a:hover {
 .navigation a.active {
     color: var(--link-color);
     font-weight: 600;
+}
+
+/* Hamburger Button — hidden on desktop */
+.hamburger-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    color: var(--text-color);
+    transition: background-color 0.2s;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.hamburger-btn:hover {
+    background-color: var(--item-hover);
+}
+
+.hamburger-btn .close-icon {
+    display: none;
+}
+
+.hamburger-btn.is-active .hamburger-icon {
+    display: none;
+}
+
+.hamburger-btn.is-active .close-icon {
+    display: block;
 }
 
 /* Dark Mode Button - Minimalistic like Feder */
@@ -1114,7 +1151,9 @@ a:hover {
     color: #ffa657;
 }
 
-/* Responsive */
+/* ===========================================
+   Responsive — Tablet (≤ 1024px)
+   =========================================== */
 @media (max-width: 1024px) {
 
     .container,
@@ -1123,32 +1162,238 @@ a:hover {
     }
 }
 
+/* ===========================================
+   Responsive — Mobile / Tablet (≤ 768px)
+   =========================================== */
 @media (max-width: 768px) {
 
-    .container,
-    .header-content {
-        width: 95%;
+    /* --- Container & layout --- */
+    .container {
+        width: 100%;
+        padding: 0 20px;
     }
 
     .header-content {
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .right-nav {
-        flex-direction: column;
-        gap: 16px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 20px;
+        position: relative;
+        justify-content: center;
+        flex-direction: row;
+        gap: 0;
     }
 
     .branding-area {
-        width: 100%;
-        justify-content: space-between;
+        /* Centered because header-content uses justify-content: center
+           and .right-nav is taken out of flow via absolute positioning */
+        flex: 0 0 auto;
+        justify-content: center;
     }
 
-    .dropdown-content {
-        left: auto;
+    /* --- Right-nav (dark mode + hamburger) — absolute to the right --- */
+    .right-nav {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        gap: 4px;
+        align-items: center;
+    }
+
+    /* --- Show hamburger button --- */
+    .hamburger-btn {
+        display: flex;
+    }
+
+    /* --- Dark mode button touch target --- */
+    .dark-mode-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* --- Collapsible navigation panel --- */
+    .navigation {
+        margin: 0;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
         right: 0;
-        /* Align right on mobile? or keep left */
+        width: 100%;
+        background-color: var(--header-bg);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .navigation.is-open {
+        display: block;
+    }
+
+    .navigation ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 8px 0;
+    }
+
+    .navigation li {
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+    }
+
+    .navigation li:last-child {
+        border-bottom: none;
+    }
+
+    .navigation a {
+        display: flex;
+        align-items: center;
+        padding: 14px 24px;
+        font-size: 18px;
+        min-height: 44px;
+        width: 100%;
+    }
+
+    /* --- Dropdown menu position on mobile --- */
+    .dropdown-content {
+        left: 0;
+        right: auto;
+    }
+
+    /* --- Fluid typography --- */
+    body {
+        font-size: 18px;
+    }
+
+    .site-title {
+        font-size: 26px;
+    }
+
+    .page-header h1 {
+        font-size: 48px;
+    }
+
+    .post-header h1 {
+        font-size: 36px;
+    }
+
+    .news-item h3,
+    .post-item h3,
+    .item-list h3 {
+        font-size: 24px;
+    }
+
+    /* --- Homepage news list: collapse 3-column grid --- */
+    .news-link {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 14px 0;
+    }
+
+    .news-category {
+        display: none;
+    }
+
+    .news-date-row {
+        text-align: left;
+    }
+
+    /* --- Products grid: single column --- */
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* --- Content spacing --- */
+    .content {
+        padding: 24px 0;
+    }
+
+    .page-content-wrapper {
+        padding: 24px 16px;
+    }
+
+    /* --- Top-right action: no longer absolute positioned --- */
+    .top-right-action {
+        position: static;
+        margin-bottom: 16px;
+    }
+
+    /* --- Action button row wraps on small screens --- */
+    .header-actions {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* --- Action buttons: ensure touch-friendly size --- */
+    .action-btn,
+    .download-btn-main {
+        min-height: 44px;
+        align-items: center;
+    }
+}
+
+/* ===========================================
+   Responsive — Small Mobile (≤ 480px)
+   =========================================== */
+@media (max-width: 480px) {
+
+    body {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .header-content {
+        padding: 0 16px;
+    }
+
+    .right-nav {
+        right: 16px;
+    }
+
+    .site-title {
+        font-size: 20px;
+    }
+
+    .page-header h1 {
+        font-size: 34px;
+    }
+
+    .post-header h1 {
+        font-size: 28px;
+    }
+
+    .news-item h3,
+    .post-item h3,
+    .item-list h3 {
+        font-size: 20px;
+    }
+
+    .product-card {
+        padding: 16px;
+    }
+
+    .product-card h3,
+    .product-card h1 {
+        font-size: 26px;
+    }
+
+    .page-content-wrapper {
+        padding: 16px;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .download-dropdown-menu,
+    .desktop-download-menu {
+        width: calc(100vw - 32px);
+        right: -16px;
     }
 }
 

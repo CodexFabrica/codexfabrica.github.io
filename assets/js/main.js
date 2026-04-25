@@ -43,6 +43,56 @@ window.onclick = function (event) {
     }
 }
 
+// --- Hamburger / mobile navigation ---
+
+function toggleHamburger() {
+    const nav = document.getElementById('mainNav');
+    const btn = document.getElementById('hamburgerBtn');
+    if (!nav || !btn) return;
+
+    const isOpen = nav.classList.toggle('is-open');
+    btn.classList.toggle('is-active', isOpen);
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+function closeHamburger() {
+    const nav = document.getElementById('mainNav');
+    const btn = document.getElementById('hamburgerBtn');
+    if (!nav || !btn) return;
+
+    nav.classList.remove('is-open');
+    btn.classList.remove('is-active');
+    btn.setAttribute('aria-expanded', 'false');
+}
+
+function initializeHamburger() {
+    const btn = document.getElementById('hamburgerBtn');
+    if (!btn) return;
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleHamburger();
+    });
+
+    // Close nav when a nav link is clicked (SPA-style navigation)
+    const nav = document.getElementById('mainNav');
+    if (nav) {
+        nav.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                closeHamburger();
+            });
+        });
+    }
+
+    // Close nav when clicking outside the header
+    document.addEventListener('click', (e) => {
+        const header = document.querySelector('.site-header');
+        if (header && !header.contains(e.target)) {
+            closeHamburger();
+        }
+    });
+}
+
 function initializeCopyButtons() {
     const codeBlocks = document.querySelectorAll('pre');
 
@@ -100,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdownBtn.addEventListener('click', toggleDropdown);
     }
 
-
+    initializeHamburger();
     initializeCopyButtons();
     initializeDownloadDropdowns();
     initializeDesktopDownloadDropdowns();
