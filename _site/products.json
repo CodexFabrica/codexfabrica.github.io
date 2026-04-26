@@ -1,0 +1,16 @@
+[
+{
+"title": "SyncGIGT",
+"url": "http://localhost:4000/products/SyncGithubToGoogle/",
+"description": "Sync your Github Issues in Google Tasks",
+"tagline": "Sync your Github Issues in Google Tasks with AI",
+"product_logo": "http://localhost:4000/assets/images/syncgigt.svg"
+},
+{
+"title": "Feder",
+"url": "http://localhost:4000/products/feder/",
+"description": "A local alternative to Overleaf for your privacy",
+"tagline": "Serverless, Open-source and Markdown-based Workspace for Writing",
+"product_logo": "http://localhost:4000/assets/images/feder.svg"
+}
+]
