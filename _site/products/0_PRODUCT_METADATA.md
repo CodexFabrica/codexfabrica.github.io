@@ -64,6 +64,7 @@ This guide defines the available frontmatter options for product Markdown files 
 * **`library`**: Code package for developers (Python package, npm module).
 * **`service`**: Consulting or manual service.
 * **`course`** / **`resource`**: Educational material or templates.
+* **`dataset`**: Dataset for research or analysis.
 
 ---
 
