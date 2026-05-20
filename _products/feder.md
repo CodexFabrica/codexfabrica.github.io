@@ -2,6 +2,7 @@
 repo_public: true
 published: true
 title: "Feder"
+date: 10-02-2026
 dev_stage: "beta"
 distribution: "freeware"
 product_type: "webapp"

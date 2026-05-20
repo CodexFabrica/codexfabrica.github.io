@@ -1,6 +1,6 @@
 ---
 title: "Introducing Feder: The Modern Markdown Workspace"
-date: 2026-01-19
+date: 19-01-2026
 author: CodexFabrica Team
 tags: [feder, release, markdown]
 excerpt: "We are proud to announce the official release of Feder, our open-source Markdown-based workspace designed to simplify document creation for writers and researchers."

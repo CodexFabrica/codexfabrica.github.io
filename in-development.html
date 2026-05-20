@@ -1,0 +1,48 @@
+---
+layout: page
+title: In Development
+description: ""
+permalink: /in-development/
+---
+
+<div class="header-actions" style="margin-bottom: 40px; justify-content: center;">
+    <a href="https://everythingengineering.github.io/products" target="_blank" class="action-btn secondary-btn"
+        style="padding: 10px 24px; border-radius: 30px; background-color: var(--tag-bg); color: var(--text-color); gap: 10px; display: flex; align-items: center; border: 1px solid var(--border-color); text-decoration: none;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+        <span style="font-size: 18px; font-weight: 400; font-family: 'Roboto', sans-serif;">View Everything</span>
+    </a>
+</div>
+
+<div class="products-grid">
+    {% assign in_dev_products = site.products | where_exp: "item", "item.dev_stage == 'in-dev'" %}
+    {% assign in_dev_date_keys = "" %}
+    {% for product in in_dev_products %}
+    {% capture in_dev_sort_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+    {% assign in_dev_sort_key = in_dev_sort_key | strip %}
+    {% if in_dev_sort_key != "" %}
+    {% assign in_dev_date_keys = in_dev_date_keys | append: in_dev_sort_key | append: "|" %}
+    {% endif %}
+    {% endfor %}
+    {% assign sorted_in_dev_date_keys = in_dev_date_keys | split: "|" | uniq | sort | reverse %}
+    {% for sort_key in sorted_in_dev_date_keys %}
+    {% for product in in_dev_products %}
+    {% capture current_in_dev_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+    {% assign current_in_dev_key = current_in_dev_key | strip %}
+    {% if current_in_dev_key == sort_key %}
+    {% include product_card.html product=product %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    {% for product in in_dev_products %}
+    {% capture current_in_dev_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+    {% assign current_in_dev_key = current_in_dev_key | strip %}
+    {% if current_in_dev_key == "" %}
+    {% include product_card.html product=product %}
+    {% endif %}
+    {% endfor %}
+</div>

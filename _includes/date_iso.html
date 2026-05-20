@@ -1,0 +1,13 @@
+{%- assign raw_date = include.date_value | default: "" | strip -%}
+{%- if raw_date != "" -%}
+{%- assign date_part = raw_date | split: " " | first -%}
+{%- assign parts = date_part | split: "-" -%}
+{%- if parts.size == 3 -%}
+{%- assign first_part_size = parts[0] | size -%}
+{%- if first_part_size == 4 -%}
+{{ date_part }}
+{%- else -%}
+{{ parts[2] }}-{{ parts[1] }}-{{ parts[0] }}
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}

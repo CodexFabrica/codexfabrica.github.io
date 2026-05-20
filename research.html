@@ -19,7 +19,21 @@ description: ""
 </div>
 
 <div class="products-grid">
+    {% assign research_date_keys = "" %}
     {% for item in site.research %}
+    {% capture research_sort_key %}{% include date_sort_key.html date_value=item.date %}{% endcapture %}
+    {% assign research_sort_key = research_sort_key | strip %}
+    {% if research_sort_key != "" %}
+    {% assign research_date_keys = research_date_keys | append: research_sort_key | append: "|" %}
+    {% endif %}
+    {% endfor %}
+    {% assign sorted_research_date_keys = research_date_keys | split: "|" | uniq | sort | reverse %}
+    {% for sort_key in sorted_research_date_keys %}
+    {% if sort_key != "" %}
+    {% for item in site.research %}
+    {% capture current_research_key %}{% include date_sort_key.html date_value=item.date %}{% endcapture %}
+    {% assign current_research_key = current_research_key | strip %}
+    {% if current_research_key == sort_key %}
     <div class="product-card">
         <!-- Main Link Overlay -->
         <a href="{{ item.url | relative_url }}"
@@ -57,5 +71,51 @@ description: ""
         </div>
         <p class="product-tagline" style="font-size: 21px; margin-top: 16px;">{{ item.description }}</p>
     </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% for item in site.research %}
+    {% capture current_research_key %}{% include date_sort_key.html date_value=item.date %}{% endcapture %}
+    {% assign current_research_key = current_research_key | strip %}
+    {% if current_research_key == "" %}
+    <div class="product-card">
+        <!-- Main Link Overlay -->
+        <a href="{{ item.url | relative_url }}"
+            style="position: absolute; inset: 0; z-index: 1; border-radius: 8px;"></a>
+
+        <div class="product-card-header" style="justify-content: space-between; align-items: flex-start;">
+            <div style="flex: 1; padding-right: 80px;">
+                <h1
+                    style="margin: 0; font-size: 34px; font-weight: 400; font-family: 'Roboto', sans-serif; line-height: 1.2;">
+                    {{ item.title }}</h1>
+            </div>
+
+            <!-- Quick Links Area (with fixed space) -->
+            <div class="product-quick-links"
+                style="position: relative; top: 0; right: 0; opacity: 1; display: flex; gap: 8px;">
+                <a href="{{ item.url | relative_url }}" class="quick-link-icon" title="Documentation"
+                    style="position: relative; z-index: 2;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </a>
+                <a href="#" class="quick-link-icon" title="Paper" style="position: relative; z-index: 2;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <p class="product-tagline" style="font-size: 21px; margin-top: 16px;">{{ item.description }}</p>
+    </div>
+    {% endif %}
     {% endfor %}
 </div>

@@ -1,0 +1,20 @@
+{%- assign raw_date = include.date_value | default: "" | strip -%}
+{%- if raw_date != "" -%}
+{%- assign date_part = raw_date | split: " " | first -%}
+{%- assign parts = date_part | split: "-" -%}
+{%- if parts.size == 3 -%}
+{%- assign month_names = "January|February|March|April|May|June|July|August|September|October|November|December" | split: "|" -%}
+{%- assign first_part_size = parts[0] | size -%}
+{%- if first_part_size == 4 -%}
+{%- assign day = parts[2] -%}
+{%- assign month = parts[1] -%}
+{%- assign year = parts[0] -%}
+{%- else -%}
+{%- assign day = parts[0] -%}
+{%- assign month = parts[1] -%}
+{%- assign year = parts[2] -%}
+{%- endif -%}
+{%- assign month_index = month | plus: 0 | minus: 1 -%}
+{{ day }} {{ month_names[month_index] }}, {{ year }}
+{%- endif -%}
+{%- endif -%}

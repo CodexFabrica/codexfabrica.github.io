@@ -1,6 +1,6 @@
 ---
 title: "The Vision Behind CodexFabrica"
-date: 2026-01-20
+date: 20-01-2026
 author: CodexFabrica Team
 tags: [vision, philosophy, codexfabrica]
 excerpt: "Exploring the core philosophy of CodexFabrica: Building tools that bridge the gap between complex engineering and accessible design."

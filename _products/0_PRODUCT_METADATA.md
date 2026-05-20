@@ -9,6 +9,7 @@ This guide defines the available frontmatter options for product Markdown files 
 | `title` | String | The official name of the product. |
 | `layout` | String | Jekyll layout to use. usually `page`. |
 | `description` | String | A brief summary for SEO and meta tags. |
+| `date` | String | Publication date in `DD-MM-YYYY` format used for sorting lists. |
 | `tagline` | String | A short, catchy phrase displayed on the product card. |
 | `product_logo` | Path | Path to the logo image (e.g., `/assets/images/logo.svg`). |
 | `repository` | String | GitHub repository identifier (e.g., `CodexFabrica/Feder`). |
@@ -78,6 +79,7 @@ dev_stage: "in-dev"
 distribution: "open-source"
 product_type: "webapp"
 description: "A local alternative to Overleaf for your privacy"
+date: 10-02-2026
 tagline: "Serverless, Open-source and Markdown-based Workspace for Writing"
 product_logo: "/assets/images/feder.svg"
 repository: "CodexFabrica/Feder"

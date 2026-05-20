@@ -33,7 +33,31 @@ description: ""
 
 <div class="products-grid">
     {% assign filtered_products = site.products | where_exp: "item", "item.dev_stage != 'concept'" %}
+    {% assign product_date_keys = "" %}
     {% for product in filtered_products %}
+    {% capture product_sort_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+    {% assign product_sort_key = product_sort_key | strip %}
+    {% if product_sort_key != "" %}
+    {% assign product_date_keys = product_date_keys | append: product_sort_key | append: "|" %}
+    {% endif %}
+    {% endfor %}
+    {% assign sorted_product_date_keys = product_date_keys | split: "|" | uniq | sort | reverse %}
+    {% for sort_key in sorted_product_date_keys %}
+    {% if sort_key != "" %}
+    {% for product in filtered_products %}
+    {% capture current_product_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+    {% assign current_product_key = current_product_key | strip %}
+    {% if current_product_key == sort_key %}
     {% include product_card.html product=product %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% for product in filtered_products %}
+    {% capture current_product_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+    {% assign current_product_key = current_product_key | strip %}
+    {% if current_product_key == "" %}
+    {% include product_card.html product=product %}
+    {% endif %}
     {% endfor %}
 </div>

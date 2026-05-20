@@ -1,6 +1,6 @@
 ---
 title: "Why We Chose Markdown for Modern Writing"
-date: 2026-01-21
+date: 21-01-2026
 author: CodexFabrica Team
 tags: [markdown, technology, products]
 excerpt: "CodexFabrica is betting big on Markdown. Discover why we believe it's the ultimate format for technical and creative documentation."

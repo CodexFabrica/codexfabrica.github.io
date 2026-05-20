@@ -7,20 +7,40 @@ title: Home
     <section class="content-section">
         <h2>News</h2>
         {% if site.news.size > 0 %}
-        {% assign latest_news = site.news | sort: "date" | reverse %}
+        {% assign latest_news_date_keys = "" %}
+        {% for post in site.news %}
+        {% capture latest_news_sort_key %}{% include date_sort_key.html date_value=post.date %}{% endcapture %}
+        {% assign latest_news_sort_key = latest_news_sort_key | strip %}
+        {% if latest_news_sort_key != "" %}
+        {% assign latest_news_date_keys = latest_news_date_keys | append: latest_news_sort_key | append: "|" %}
+        {% endif %}
+        {% endfor %}
+        {% assign sorted_latest_news_keys = latest_news_date_keys | split: "|" | uniq | sort | reverse %}
         <ul class="news-list reduced">
-            {% for post in latest_news limit:3 %}
+            {% assign rendered_news_count = 0 %}
+            {% for sort_key in sorted_latest_news_keys %}
+            {% if rendered_news_count >= 3 %}{% break %}{% endif %}
+            {% if sort_key != "" %}
+            {% for post in site.news %}
+            {% if rendered_news_count >= 3 %}{% break %}{% endif %}
+            {% capture current_latest_news_key %}{% include date_sort_key.html date_value=post.date %}{% endcapture %}
+            {% assign current_latest_news_key = current_latest_news_key | strip %}
+            {% if current_latest_news_key == sort_key %}
             <li class="news-item">
                 <a href="{{ post.url | relative_url }}" class="news-link">
                     <span class="news-title">{{ post.title }}</span>
                     <span class="news-category">{% if post.tags.size > 0 %}{{ post.tags[0] }}{% endif %}</span>
-                    <span class="news-date-row">{{ post.date | date: "%b %d, %Y" }}</span>
+                    <span class="news-date-row">{% include date_display.html date_value=post.date %}</span>
                 </a>
             </li>
+            {% assign rendered_news_count = rendered_news_count | plus: 1 %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
             {% endfor %}
         </ul>
         <div class="header-actions" style="margin-top: 32px; justify-content: flex-start; gap: 16px;">
-            <a href="{{ '/news.html/' | relative_url }}" class="action-btn"
+            <a href="{{ '/news.html' | relative_url }}" class="action-btn"
                 style="padding: 8px 20px; border-radius: 20px; background-color: var(--tag-bg); color: var(--text-color); font-weight: 500;">
                 View all news
             </a>
@@ -31,11 +51,30 @@ title: Home
     <section class="content-section">
         <h2>Products</h2>
         <div class="products-grid">
-            <!-- Feder Product Card -->
-            <!-- Feder Product Card -->
             {% assign filtered_products = site.products | where_exp: "item", "item.dev_stage != 'concept'" %}
-            {% for product in filtered_products limit:3 %}
+            {% assign product_date_keys = "" %}
+            {% for product in filtered_products %}
+            {% capture product_sort_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+            {% assign product_sort_key = product_sort_key | strip %}
+            {% if product_sort_key != "" %}
+            {% assign product_date_keys = product_date_keys | append: product_sort_key | append: "|" %}
+            {% endif %}
+            {% endfor %}
+            {% assign sorted_product_date_keys = product_date_keys | split: "|" | uniq | sort | reverse %}
+            {% assign rendered_product_count = 0 %}
+            {% for sort_key in sorted_product_date_keys %}
+            {% if rendered_product_count >= 3 %}{% break %}{% endif %}
+            {% if sort_key != "" %}
+            {% for product in filtered_products %}
+            {% if rendered_product_count >= 3 %}{% break %}{% endif %}
+            {% capture current_product_key %}{% include date_sort_key.html date_value=product.date %}{% endcapture %}
+            {% assign current_product_key = current_product_key | strip %}
+            {% if current_product_key == sort_key %}
             {% include product_card.html product=product %}
+            {% assign rendered_product_count = rendered_product_count | plus: 1 %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
             {% endfor %}
         </div>
         <div class="header-actions" style="margin-top: 32px; justify-content: flex-start; gap: 16px;">

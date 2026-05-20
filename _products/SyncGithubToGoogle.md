@@ -2,6 +2,7 @@
 repo_public: true
 published: true
 title: "SyncGIGT"
+date: 10-12-2025
 dev_stage: "stable release"
 distribution: "open-source"
 product_type: "library"

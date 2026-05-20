@@ -5,14 +5,43 @@ description: Latest news and announcements from CodexFabrica
 ---
 
 {% if site.news.size > 0 %}
+{% assign news_date_keys = "" %}
+{% for post in site.news %}
+{% capture news_sort_key %}{% include date_sort_key.html date_value=post.date %}{% endcapture %}
+{% assign news_sort_key = news_sort_key | strip %}
+{% if news_sort_key != "" %}
+{% assign news_date_keys = news_date_keys | append: news_sort_key | append: "|" %}
+{% endif %}
+{% endfor %}
+{% assign sorted_news_date_keys = news_date_keys | split: "|" | uniq | sort | reverse %}
 <ul class="news-list">
-    {% for post in site.news reversed %}
+    {% for sort_key in sorted_news_date_keys %}
+    {% if sort_key != "" %}
+    {% for post in site.news %}
+    {% capture current_news_key %}{% include date_sort_key.html date_value=post.date %}{% endcapture %}
+    {% assign current_news_key = current_news_key | strip %}
+    {% if current_news_key == sort_key %}
     <li class="news-item">
         <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <div class="news-date">{{ post.date | date: "%B %d, %Y" }}</div>
+        <div class="news-date">{% include date_display.html date_value=post.date %}</div>
         <div class="news-excerpt">{{ post.excerpt | strip_html | truncatewords: 50 }}</div>
-        <a href="{{ post.url | relative_url }}">Read more →</a>
+        <a href="{{ post.url | relative_url }}">Read more -></a>
     </li>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% for post in site.news %}
+    {% capture current_news_key %}{% include date_sort_key.html date_value=post.date %}{% endcapture %}
+    {% assign current_news_key = current_news_key | strip %}
+    {% if current_news_key == "" %}
+    <li class="news-item">
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <div class="news-date">{% include date_display.html date_value=post.date %}</div>
+        <div class="news-excerpt">{{ post.excerpt | strip_html | truncatewords: 50 }}</div>
+        <a href="{{ post.url | relative_url }}">Read more -></a>
+    </li>
+    {% endif %}
     {% endfor %}
 </ul>
 {% else %}
